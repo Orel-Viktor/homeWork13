@@ -14,6 +14,9 @@ function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
   );
 
   function showNextSlide() {
+    if (activeSlideIndex === slides.length - 1) {
+      return;
+    }
     slides[activeSlideIndex].classList.remove("active");
     activeSlideIndex += 1;
     opacity();
@@ -21,6 +24,9 @@ function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
   }
 
   function showPrevSlide() {
+    if (activeSlideIndex === 0) {
+      return;
+    }
     slides[activeSlideIndex].classList.remove("active");
     activeSlideIndex -= 1;
     opacity();
@@ -52,4 +58,11 @@ const slider = new Slider({
   listSelector: ".js--list",
 });
 
+const slider2 = new Slider({
+  nextBtnSelector: ".js--next1",
+  prevBtnSelector: ".js--prev1",
+  listSelector: ".js--list1",
+});
+
 console.log(slider);
+console.log(slider2);
