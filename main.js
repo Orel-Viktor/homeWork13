@@ -2,37 +2,54 @@
 
 import "./styles/main.scss";
 
-const _prev = document.querySelector('.js--prev')
-const _next = document.querySelector('.js--next')
-const _list = document.querySelector('.js--list')
+function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
+  const next = document.querySelector(nextBtnSelector);
+  const prev = document.querySelector(prevBtnSelector);
+  const list = document.querySelector(listSelector);
 
+  const slides = Array.from(list.querySelectorAll("li"));
+  this._sliderLength = slides.length;
+  let activeSlideIndex = slides.findIndex((elem) =>
+    elem.classList.contains("active")
+  );
 
-_next.addEventListener('click', function () {
-  const active = _list.querySelector('.active')
-  const _nextElement = active.nextElementSibling
-  if (_nextElement) {
-    _prev.classList.remove('half-opacity')
-    active.classList.remove('active')
-    _nextElement.classList.add('active')
+  function showNextSlide() {
+    slides[activeSlideIndex].classList.remove("active");
+    activeSlideIndex += 1;
+    opacity();
+    slides[activeSlideIndex].classList.add("active");
   }
-  if (!_nextElement){
-    _next.classList.add('half-opacity')
+
+  function showPrevSlide() {
+    slides[activeSlideIndex].classList.remove("active");
+    activeSlideIndex -= 1;
+    opacity();
+    slides[activeSlideIndex].classList.add("active");
   }
-})
+  this.showNextSlide = showNextSlide.bind(this);
+  this.showPrevSlide = showPrevSlide.bind(this);
+  next.addEventListener("click", this.showNextSlide);
+  prev.addEventListener("click", this.showPrevSlide);
 
-_prev.addEventListener('click', function () {
-  const active = _list.querySelector('.active')
-  const _prevElement = active.previousElementSibling
-
-  if (_prevElement) {
-    _next.classList.remove('half-opacity')
-    active.classList.remove('active')
-    _prevElement.classList.add('active')
+  function opacity() {
+    if (activeSlideIndex === 0) {
+      prev.classList.add("disabled");
+      return;
+    }
+    if (activeSlideIndex === slides.length - 1) {
+      next.classList.add("disabled");
+      return;
+    }
+    prev.classList.remove("disabled");
+    next.classList.remove("disabled");
   }
-  if (!_prevElement) {
-    _prev.classList.add('half-opacity')
-  }
-  { }
-})
+  opacity();
+}
 
+const slider = new Slider({
+  nextBtnSelector: ".js--next",
+  prevBtnSelector: ".js--prev",
+  listSelector: ".js--list",
+});
 
+console.log(slider);
