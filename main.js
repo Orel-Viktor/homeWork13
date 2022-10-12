@@ -32,8 +32,8 @@ function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
     opacity();
     slides[activeSlideIndex].classList.add("active");
   }
-  this.showNextSlide = showNextSlide.bind(this);
-  this.showPrevSlide = showPrevSlide.bind(this);
+  this.showNextSlide = showNextSlide;
+  this.showPrevSlide = showPrevSlide;
   next.addEventListener("click", this.showNextSlide);
   prev.addEventListener("click", this.showPrevSlide);
 
@@ -49,7 +49,7 @@ function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
     prev.classList.remove("disabled");
     next.classList.remove("disabled");
   }
-  opacity();
+  console.log(this)
 }
 
 const slider = new Slider({
@@ -64,5 +64,4 @@ const slider2 = new Slider({
   listSelector: ".js--list1",
 });
 
-console.log(slider);
-console.log(slider2);
+
