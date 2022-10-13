@@ -3,6 +3,7 @@
 import "./styles/main.scss";
 
  
+
 function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
   const next = document.querySelector(nextBtnSelector);
   const prev = document.querySelector(prevBtnSelector);
