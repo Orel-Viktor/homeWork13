@@ -8,6 +8,7 @@ function Slider({ nextBtnSelector, prevBtnSelector, listSelector }) {
   const list = document.querySelector(listSelector);
 
   const slides = Array.from(list.querySelectorAll("li"));
+  console.log( slides.length)
   this._sliderLength = slides.length;
   let activeSlideIndex = slides.findIndex((elem) =>
     elem.classList.contains("active")
