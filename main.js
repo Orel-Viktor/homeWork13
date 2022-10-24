@@ -70,7 +70,6 @@ function Validation(form) {
   const elements = myForm.elements;
   const parrentItemClass = "js--form-contorl";
   const errorBorderClass = "error-border";
-  // const parrentItemClass = "form-control";
   myForm.addEventListener("submit", (event) => {
     event.preventDefault();
     this.chekFormElemnt();
@@ -80,34 +79,59 @@ function Validation(form) {
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const passwordMessage = element.dataset.password;
+      const passworReq = element.dataset.passwordReq;
       console.log(passwordMessage);
+      console.log(passworReq);
       if (passwordMessage) {
         this.validPassword(passwordMessage);
+      } if (passworReq) {
+        this.validPasswordReq(passworReq);
       }
     }
   };
 
   this.validPassword = function (message) {
     const allPasswordElements = myForm.querySelectorAll("input[type=password]");
-    console.log(allPasswordElements);
+    const valueArr = Array.from(allPasswordElements).map(
+      (element) => element.value);
+    console.log(valueArr[1])
+    console.log(valueArr[0])
+    if (valueArr[0] !== valueArr[1]) {
+      allPasswordElements.forEach((item) => this.errorTemplate(item, message));
+    }
+  };
+
+  this.validPasswordReq = function (message) {
+    const allPasswordElements = myForm.querySelectorAll("input[type=password]");
     const valueArr = Array.from(allPasswordElements).map(
       (element) => element.value
     );
-    console.log(valueArr);
-    if (valueArr[0] !== valueArr[1]) {
+    if (valueArr[0] == "" || valueArr[1] == "") {
       allPasswordElements.forEach((item) => this.errorTemplate(item, message));
-      return
+      console.log(valueArr)
     }
+
   };
 
   this.errorTemplate = function (element, message) {
     const parent = element.closest(`.${parrentItemClass}`);
-    console.log(parent);
+    console.log(parent)
+    let divSmall = document.createElement('small')
+    divSmall.innerText = `${message}`
     if (!parent.classList.contains(errorBorderClass)) {
       parent.classList.add(errorBorderClass);
-      parent.insertAdjacentHTML("beforeend", `<small>${message}</small>`);
+      parent.appendChild(divSmall)
+      // parent.insertAdjacentHTML("beforeend", `<small>${message}</small>`)
+      console.log(divSmall)
+      return
     }
-  };
+    //  if (parent.classList.contains(errorBorderClass)) {
+    // parent.removeChild(divSmall)
+    //   parent.classList.remove(errorBorderClass);
+    // };
+
+  }
 }
+
 
 const form1 = new Validation(".form");
