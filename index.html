@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    
-<div class="container">
-  <!-- <div class="slider-inner js--slider">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite App</title>
+	</head>
+	<body>
+		<div class="container">
+			<!-- <div class="slider-inner js--slider">
     <span class="slider-inner__prev js--prev "></span>
     <ul class="js--list slider-inner__list">
       <li >1</li>
@@ -21,7 +20,7 @@
     <span class="slider-inner__next js--next "></span>
   </div> -->
 
-  <!-- <div class="slider-inner js--slider">
+			<!-- <div class="slider-inner js--slider">
     <span class="slider-inner__prev js--prev1 "></span>
     <ul class="js--list1 slider-inner__list">
       <li >1</li>
@@ -32,61 +31,60 @@
     <span class="slider-inner__next js--next1 "></span>
   </div> -->
 
+			<form class="form" id="'form js--form-contorl">
+				<label class="form__form-control js--form-contorl">
+					<span>Имя</span>
+					<input
+						type="text"
+						name="username"
+            class="js--form-field"
+						data-req="имя обязательное поле"
+						placeholder="введите имя"
+					/>
+				</label>
+				<label class="form__form-control js--form-contorl">
+					<span>Почта</span>
+					<input
+						type="email"
+						name="email"
+            class="js--form-field"
+						data-req="Почта обязательное поле"
+						data-message="Проврте правильность email"
+						placeholder="Почту"
+					/>
+				</label>
 
+				<label class="form__form-control js--form-contorl">
+					<span>Пароль</span>
+					<input
+						type="password"
+						name="password"
+            class="js--form-field"
+						data-password-req="Пароль обязательное поле"
+						data-password="Пароли должны совпадать"
+						data-min-lenght="5"
+						data-min-message="Для пароля должна быть не менее N символов"
+						placeholder="введите Пароль"
+					/>
+				</label>
+				<label class="form__form-control js--form-contorl">
+					<span>Пароль</span>
+					<input
+						type="password"
+						name="confirm-password"
+            class="js--form-field"
+						data-password-req="Пароль обязательное поле"
+						data-password="Пароли должны совпадать"
+						data-min-lenght="5"
+						data-min-message="Для пароля должна быть не менее N символов"
+						placeholder="введите Пароль"
+					/>
+				</label>
 
-<form  class ="form" id="'form js--form-contorl" >
-  <label class="form__form-control" >
-    <span>Имя</span>
-    <input 
-    type="text" 
-    name="username"
-    data-req="имя обязательное поле"
-    placeholder="введите имя"
-    >
-  </label>
-  <label class="form__form-control js--form-contorl" >
-    <span>Почта</span>
-    <input 
-    type="email" 
-    name="email"
-    data-req="Почта обязательное поле"
-    data-message="Проврте правильность email"
-    placeholder="Почту"
-    >
-  </label>
+				<button>Отправить</button>
+			</form>
+		</div>
 
-  <label class="form__form-control js--form-contorl" >
-    <span>Пароль</span>
-    <input 
-    type="password" 
-    name="password"
-    data-password-req ="Пароль обязательное поле"
-    data-password = "Пароли должны совпадать"
-    data-min-lenght="5"
-    data-min-message="Для пароля должна быть не менее N символов"
-    placeholder="введите Пароль"
-    >
-  </label>
-  <label class="form__form-control js--form-contorl" >
-    <span>Пароль</span>
-    <input 
-    type="password" 
-    name="password"
-    data-password-req="Пароль обязательное поле"
-    data-password = "Пароли должны совпадать"
-    data-min-lenght="5"
-    data-min-message="Для пароля должна быть не менее N символов"
-    placeholder="введите Пароль"
-    >
-  </label>
-
-<button>Отправить</button>
-
-</form>
-
-
-</div>
-
-    <script type="module" src="/main.js"></script>
-  </body>
+		<script type="module" src="/main.js"></script>
+	</body>
 </html>

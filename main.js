@@ -67,50 +67,65 @@ import "./styles/main.scss";
 
 function Validation(form) {
   const myForm = document.querySelector(form);
-  const elements = myForm.elements;
-  const parrentItemClass = "js--form-contorl";
+  const parrentItemClass = ".js--form-contorl";
   const errorBorderClass = "error-border";
+  const fieldClass = ".js--form-field";
+
+  this.formGroups = myForm.querySelectorAll(parrentItemClass);
 
   myForm.addEventListener("submit", (event) => {
     event.preventDefault();
     this.chekFormElemnt();
   });
 
+  this.clearFieldErrors = function (fg) {
+    fg.classList.remove(errorBorderClass);
+    const error = fg.querySelector("small");
+    if (error) {
+      console.log("remove error", fg);
+      error.remove();
+    }
+  };
+
   this.chekFormElemnt = function () {
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i];
-      const passwordMessage = element.dataset.password;
-      const passworReq = element.dataset.passwordReq;
+    for (const formGroup of this.formGroups) {
+      console.log(formGroup)
+      const input = formGroup.querySelector(fieldClass);
+      this.clearFieldErrors(formGroup);
+      const passwordMessage = input.dataset.password;
+      const passworReq = input.dataset.passwordReq;
       if (passwordMessage) {
-        this.validPassword(passwordMessage);
+        this.validPassword(input, passwordMessage);
       }
       if (passworReq) {
-        this.validPasswordReq(passworReq);
+        this.validPasswordReq(input, passworReq);
       }
     }
   };
-  this.validPassword = function (message) {
+
+  this.validPassword = function (input, message) {
     const allPasswordElements = myForm.querySelectorAll("input[type=password]");
     const valueArr = Array.from(allPasswordElements).map(
       (element) => element.value
     );
     if (valueArr[0] !== valueArr[1]) {
-      allPasswordElements.forEach((item) => this.errorTemplate(item, message));
-      console.log("ValidPassword", message);
+      this.errorTemplate(input, message);
     }
   };
-  this.validPasswordReq = function (message) {
+
+  this.validPasswordReq = function (input, message) {
     const allPasswordElements = myForm.querySelectorAll("input[type=password]");
     const valueArr = Array.from(allPasswordElements).map(
       (element) => element.value
     );
     if (valueArr[0] == "" || valueArr[1] == "") {
-      allPasswordElements.forEach((item) => this.errorTemplate(item, message));
-      console.log("ValidReq", message);
+      this.errorTemplate(input, message);
     }
   };
-  this.errorTemplate = function (element, message) {
-    const parent = element.closest(`.${parrentItemClass}`);
+
+  this.errorTemplate = function (input, message) {
+    const parent = input.closest(parrentItemClass);
+    console.log(parent)
     const eror = parent.querySelector("small");
     if (eror) {
       eror.innerText = message;
