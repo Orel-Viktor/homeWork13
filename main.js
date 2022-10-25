@@ -72,7 +72,6 @@ function Validation(form) {
   const fieldClass = ".js--form-field";
 
   this.formGroups = myForm.querySelectorAll(parrentItemClass);
-
   myForm.addEventListener("submit", (event) => {
     event.preventDefault();
     this.chekFormElemnt();
@@ -82,20 +81,33 @@ function Validation(form) {
     fg.classList.remove(errorBorderClass);
     const error = fg.querySelector("small");
     if (error) {
-      console.log("remove error", fg);
       error.remove();
     }
   };
 
   this.chekFormElemnt = function () {
     for (const formGroup of this.formGroups) {
-      console.log(formGroup)
       const input = formGroup.querySelector(fieldClass);
       this.clearFieldErrors(formGroup);
       const passwordMessage = input.dataset.password;
       const passworReq = input.dataset.passwordReq;
+      const passMinDigit = input.dataset.minLength;
+      const passMinLength = input.dataset.minMessage;
+      const emailReq = input.dataset.emailReq;
+      const emailMessage = input.dataset.email;
+      console.log(emailMessage)
+      console.log(emailReq )
+      if(emailMessage){
+        this.validEmail(input, emailMessage)
+      }
+      if (emailReq) {
+        this.validEmailReq(input, emailReq);
+      }  
       if (passwordMessage) {
         this.validPassword(input, passwordMessage);
+      }
+      if (passMinLength) {
+        this.validMinLength(input, passMinLength.replace("N", passMinDigit));
       }
       if (passworReq) {
         this.validPasswordReq(input, passworReq);
@@ -123,12 +135,40 @@ function Validation(form) {
     }
   };
 
+  this.validMinLength = (input, message) => {
+    const allPasswordElements = myForm.querySelectorAll("input[type=password]");
+    const valueArr = Array.from(allPasswordElements).map(
+      (element) => element.value
+    );
+    if (valueArr[0].length < 5 || valueArr[1].length < 5) {
+      this.errorTemplate(input, message);
+    }
+  };
+
+  this.validEmailReq = function (input, message) {
+    const emailElement = myForm.querySelectorAll("input[type=text]");
+    console.log(emailElement)
+    const valueArr = Array.from(emailElement).map(
+      (element) => element.value);
+    if (valueArr[1] === "" ) {
+      this.errorTemplate(input, message);
+    }
+  };
+  this.validEmail = function (input, message) {
+    const emailElement = myForm.querySelectorAll("input[type=text]");
+    const valueArr = Array.from(emailElement).map(
+      (element) => element.value);
+    const rexExEmail = /@/;
+    if (!valueArr[1].match(rexExEmail) ) {
+      this.errorTemplate(input, message);
+    }
+  };
+
   this.errorTemplate = function (input, message) {
     const parent = input.closest(parrentItemClass);
-    console.log(parent)
-    const eror = parent.querySelector("small");
-    if (eror) {
-      eror.innerText = message;
+    const error = parent.querySelector("small");
+    if (error) {
+      error.innerText = message;
       return;
     }
     let divSmall = document.createElement("small");
