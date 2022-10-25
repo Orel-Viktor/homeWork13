@@ -158,7 +158,7 @@ function Validation(form) {
     const emailElement = myForm.querySelectorAll("input[type=text]");
     const valueArr = Array.from(emailElement).map(
       (element) => element.value);
-    const rexExEmail = /@/;
+    const rexExEmail = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
     if (!valueArr[1].match(rexExEmail) ) {
       this.errorTemplate(input, message);
     }
